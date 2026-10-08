@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "2e87752e0f9f46ba80e3",
+  "position": {
+    "x": 24,
+    "y": 126,
+    "z": 3000,
+    "width": 752,
+    "height": 470,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "map",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactNHStateYear"
+                    }
+                  },
+                  "Property": "location"
+                }
+              },
+              "queryRef": "FactNHStateYear.location",
+              "active": true,
+              "nativeQueryRef": "State · India"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactNHStateYear"
+                    }
+                  },
+                  "Property": "NH State Accidents 2022"
+                }
+              },
+              "queryRef": "FactNHStateYear.NH State Accidents 2022",
+              "active": true,
+              "nativeQueryRef": "NH accidents 2022"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'NH accident hotspots  |  State-level locations'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "e1bc1cfd56cf45efb134",
+  "position": {
+    "x": 34,
+    "y": 825,
+    "z": 9825,
+    "width": 1500,
+    "height": 28,
+    "tabOrder": 825
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "2022 NH accidents reached 151,997 — 7.9% above 2018. These are reported counts, not road-risk rates.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "13px",
+                      "fontWeight": "bold",
+                      "color": "#D38C15"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "56b8edb7be5f417288f1",
+  "position": {
+    "x": 800,
+    "y": 112,
+    "z": 2800,
+    "width": 364,
+    "height": 112,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "NH Accident Share 2022"
+                }
+              },
+              "queryRef": "FactAnnualSummary.NH Accident Share 2022",
+              "active": true,
+              "nativeQueryRef": "NH Accident Share 2022"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'NH SHARE OF ACCIDENTS'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

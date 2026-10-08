@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "341ab9243a9248f58928",
+  "position": {
+    "x": 24,
+    "y": 590,
+    "z": 3300,
+    "width": 740,
+    "height": 250,
+    "tabOrder": 13
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactRoadClass2022"
+                    }
+                  },
+                  "Property": "road_class"
+                }
+              },
+              "queryRef": "FactRoadClass2022.road_class",
+              "active": true,
+              "nativeQueryRef": "Road class"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactRoadClass2022"
+                    }
+                  },
+                  "Property": "Road Class Accidents"
+                }
+              },
+              "queryRef": "FactRoadClass2022.Road Class Accidents",
+              "active": true,
+              "nativeQueryRef": "Accidents"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2022 accidents  |  NH + Expressways vs other roads'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

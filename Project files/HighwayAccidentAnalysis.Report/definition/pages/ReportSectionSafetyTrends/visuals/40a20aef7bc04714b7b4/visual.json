@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "40a20aef7bc04714b7b4",
+  "position": {
+    "x": 32,
+    "y": 845,
+    "z": 9845,
+    "width": 1530,
+    "height": 18,
+    "tabOrder": 845
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "NH fatality data is available here for 2022 only. “Fatalities per 100 accidents” is a count ratio, not an exposure-adjusted risk rate.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "11px",
+                      "fontWeight": "normal",
+                      "color": "#60778D"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

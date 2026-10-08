@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "93340eda5efb467b9afe",
+  "position": {
+    "x": 28,
+    "y": 18,
+    "z": 9018,
+    "width": 1120,
+    "height": 54,
+    "tabOrder": 18
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "SEVERITY & ROAD CONTEXT",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "30px",
+                      "fontWeight": "bold",
+                      "color": "#10263D"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

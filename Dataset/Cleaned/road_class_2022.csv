@@ -1,0 +1,3 @@
+road_class,accidents,fatalities,source
+National Highways + Expressways,151997,61038,"MoRTH/PIB, 2022"
+Other roads (derived),309315,107453,"All roads minus NH + Expressways, 2022"

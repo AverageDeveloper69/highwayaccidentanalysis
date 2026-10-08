@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "9872843c19234771bd8b",
+  "position": {
+    "x": 800,
+    "y": 248,
+    "z": 3100,
+    "width": 776,
+    "height": 570,
+    "tabOrder": 11
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "year"
+                }
+              },
+              "queryRef": "FactAnnualSummary.year",
+              "active": true,
+              "nativeQueryRef": "Year"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "All Road Accidents"
+                }
+              },
+              "queryRef": "FactAnnualSummary.All Road Accidents",
+              "active": true,
+              "nativeQueryRef": "All-road accidents"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'All-road accidents  |  India'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

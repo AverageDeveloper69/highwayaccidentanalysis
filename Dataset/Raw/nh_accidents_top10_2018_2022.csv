@@ -1,0 +1,51 @@
+state,year,nh_accidents,rank_2022,source_table
+Tamil Nadu,2018,22961,1,MoRTH Table 5.5
+Tamil Nadu,2019,21489,1,MoRTH Table 5.5
+Tamil Nadu,2020,18372,1,MoRTH Table 5.5
+Tamil Nadu,2021,16869,1,MoRTH Table 5.5
+Tamil Nadu,2022,18972,1,MoRTH Table 5.5
+Kerala,2018,9161,2,MoRTH Table 5.5
+Kerala,2019,9459,2,MoRTH Table 5.5
+Kerala,2020,6594,2,MoRTH Table 5.5
+Kerala,2021,8048,2,MoRTH Table 5.5
+Kerala,2022,17627,2,MoRTH Table 5.5
+Uttar Pradesh,2018,16198,3,MoRTH Table 5.5
+Uttar Pradesh,2019,16181,3,MoRTH Table 5.5
+Uttar Pradesh,2020,13695,3,MoRTH Table 5.5
+Uttar Pradesh,2021,14540,3,MoRTH Table 5.5
+Uttar Pradesh,2022,14990,3,MoRTH Table 5.5
+Madhya Pradesh,2018,9967,4,MoRTH Table 5.5
+Madhya Pradesh,2019,10440,4,MoRTH Table 5.5
+Madhya Pradesh,2020,9866,4,MoRTH Table 5.5
+Madhya Pradesh,2021,11030,4,MoRTH Table 5.5
+Madhya Pradesh,2022,13860,4,MoRTH Table 5.5
+Karnataka,2018,13638,5,MoRTH Table 5.5
+Karnataka,2019,13363,5,MoRTH Table 5.5
+Karnataka,2020,11230,5,MoRTH Table 5.5
+Karnataka,2021,11462,5,MoRTH Table 5.5
+Karnataka,2022,13384,5,MoRTH Table 5.5
+Maharashtra,2018,9355,6,MoRTH Table 5.5
+Maharashtra,2019,8360,6,MoRTH Table 5.5
+Maharashtra,2020,6501,6,MoRTH Table 5.5
+Maharashtra,2021,7501,6,MoRTH Table 5.5
+Maharashtra,2022,9417,6,MoRTH Table 5.5
+Andhra Pradesh,2018,8122,7,MoRTH Table 5.5
+Andhra Pradesh,2019,7682,7,MoRTH Table 5.5
+Andhra Pradesh,2020,7167,7,MoRTH Table 5.5
+Andhra Pradesh,2021,8241,7,MoRTH Table 5.5
+Andhra Pradesh,2022,8650,7,MoRTH Table 5.5
+Telangana,2018,6487,8,MoRTH Table 5.5
+Telangana,2019,7352,8,MoRTH Table 5.5
+Telangana,2020,6820,8,MoRTH Table 5.5
+Telangana,2021,7214,8,MoRTH Table 5.5
+Telangana,2022,7505,8,MoRTH Table 5.5
+Rajasthan,2018,6726,9,MoRTH Table 5.5
+Rajasthan,2019,6883,9,MoRTH Table 5.5
+Rajasthan,2020,5764,9,MoRTH Table 5.5
+Rajasthan,2021,6424,9,MoRTH Table 5.5
+Rajasthan,2022,7093,9,MoRTH Table 5.5
+Bihar,2018,4016,10,MoRTH Table 5.5
+Bihar,2019,4526,10,MoRTH Table 5.5
+Bihar,2020,4101,10,MoRTH Table 5.5
+Bihar,2021,4349,10,MoRTH Table 5.5
+Bihar,2022,4601,10,MoRTH Table 5.5

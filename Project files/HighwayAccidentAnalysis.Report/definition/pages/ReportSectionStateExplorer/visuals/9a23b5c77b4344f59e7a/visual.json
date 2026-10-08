@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "9a23b5c77b4344f59e7a",
+  "position": {
+    "x": 32,
+    "y": 845,
+    "z": 9845,
+    "width": 1530,
+    "height": 18,
+    "tabOrder": 845
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "State-level NH reporting here covers the 10 states ranked highest in 2022; it is not an all-state comparison.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "11px",
+                      "fontWeight": "normal",
+                      "color": "#60778D"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

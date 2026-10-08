@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "6ffb8e72b67b462aa2c9",
+  "position": {
+    "x": 550,
+    "y": 244,
+    "z": 3100,
+    "width": 500,
+    "height": 330,
+    "tabOrder": 11
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "year"
+                }
+              },
+              "queryRef": "FactAnnualSummary.year",
+              "active": true,
+              "nativeQueryRef": "Year"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "All Road Fatalities"
+                }
+              },
+              "queryRef": "FactAnnualSummary.All Road Fatalities",
+              "active": true,
+              "nativeQueryRef": "Fatalities"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'All-road fatalities'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

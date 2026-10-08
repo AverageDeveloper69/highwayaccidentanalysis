@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "8469a55e18464f04934c",
+  "position": {
+    "x": 1076,
+    "y": 244,
+    "z": 3200,
+    "width": 500,
+    "height": 330,
+    "tabOrder": 12
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "year"
+                }
+              },
+              "queryRef": "FactAnnualSummary.year",
+              "active": true,
+              "nativeQueryRef": "Year"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "All Road Injuries"
+                }
+              },
+              "queryRef": "FactAnnualSummary.All Road Injuries",
+              "active": true,
+              "nativeQueryRef": "Injuries"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'All-road injuries'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

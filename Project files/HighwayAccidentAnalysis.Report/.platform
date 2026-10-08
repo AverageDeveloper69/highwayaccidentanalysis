@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Highway Accident Analysis"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3946ef76-ec4c-466c-bdc2-f80bb357b502"
+  }
+}

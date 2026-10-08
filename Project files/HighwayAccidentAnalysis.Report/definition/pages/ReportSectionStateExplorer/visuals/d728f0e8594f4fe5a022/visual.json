@@ -1,0 +1,98 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "d728f0e8594f4fe5a022",
+  "position": {
+    "x": 24,
+    "y": 618,
+    "z": 3200,
+    "width": 1552,
+    "height": 220,
+    "tabOrder": 12
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactNHStateYear"
+                    }
+                  },
+                  "Property": "year"
+                }
+              },
+              "queryRef": "FactNHStateYear.year",
+              "active": true,
+              "nativeQueryRef": "Year"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactNHStateYear"
+                    }
+                  },
+                  "Property": "state"
+                }
+              },
+              "queryRef": "FactNHStateYear.state",
+              "active": true,
+              "nativeQueryRef": "State"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactNHStateYear"
+                    }
+                  },
+                  "Property": "NH State Accidents"
+                }
+              },
+              "queryRef": "FactNHStateYear.NH State Accidents",
+              "active": true,
+              "nativeQueryRef": "NH accidents"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Five-year NH accident trend  |  Top 10 states only'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

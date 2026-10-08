@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "e6c7104664ee4c419093",
+  "position": {
+    "x": 24,
+    "y": 248,
+    "z": 3000,
+    "width": 752,
+    "height": 570,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "year"
+                }
+              },
+              "queryRef": "FactAnnualSummary.year",
+              "active": true,
+              "nativeQueryRef": "Year"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "NH Accidents"
+                }
+              },
+              "queryRef": "FactAnnualSummary.NH Accidents",
+              "active": true,
+              "nativeQueryRef": "NH Accidents"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'National Highway accidents  |  +18.0% vs 2021'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

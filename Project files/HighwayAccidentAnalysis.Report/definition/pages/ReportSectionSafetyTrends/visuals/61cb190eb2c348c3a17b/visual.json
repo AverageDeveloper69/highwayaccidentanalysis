@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "61cb190eb2c348c3a17b",
+  "position": {
+    "x": 412,
+    "y": 112,
+    "z": 2412,
+    "width": 364,
+    "height": 112,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "All Road Fatalities 2022"
+                }
+              },
+              "queryRef": "FactAnnualSummary.All Road Fatalities 2022",
+              "active": true,
+              "nativeQueryRef": "All Road Fatalities 2022"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ALL-ROAD FATALITIES · 2022'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

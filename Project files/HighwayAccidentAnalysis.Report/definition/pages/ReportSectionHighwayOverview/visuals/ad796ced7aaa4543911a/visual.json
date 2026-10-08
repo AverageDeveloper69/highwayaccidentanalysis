@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "ad796ced7aaa4543911a",
+  "position": {
+    "x": 28,
+    "y": 865,
+    "z": 9865,
+    "width": 1540,
+    "height": 22,
+    "tabOrder": 865
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "SOURCE  MoRTH · PIB  |  India · 2018–2022  |  Counts are not exposure-adjusted risk rates",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "11px",
+                      "fontWeight": "normal",
+                      "color": "#60778D"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

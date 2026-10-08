@@ -1,0 +1,487 @@
+{
+  "name": "HighwayAccidentAnalysis",
+  "compatibilityLevel": 1604,
+  "model": {
+    "culture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "tables": [
+      {
+        "name": "FactNHIndiaYear",
+        "lineageTag": "9560d27d-2271-4f00-a003-a83445a44ae9",
+        "columns": [
+          {
+            "name": "year",
+            "dataType": "int64",
+            "sourceColumn": "year",
+            "summarizeBy": "none",
+            "lineageTag": "d74b1b64-1c58-4b43-a03a-2e66331d9297"
+          },
+          {
+            "name": "nh_accidents",
+            "dataType": "int64",
+            "sourceColumn": "nh_accidents",
+            "summarizeBy": "sum",
+            "lineageTag": "55c8c4e1-23a4-41c2-ba0b-aa4961eccb28"
+          },
+          {
+            "name": "nh_fatalities",
+            "dataType": "int64",
+            "sourceColumn": "nh_fatalities",
+            "summarizeBy": "sum",
+            "lineageTag": "0da370be-37b8-4f07-a946-b5f8f0dbd1cb"
+          },
+          {
+            "name": "source",
+            "dataType": "string",
+            "sourceColumn": "source",
+            "summarizeBy": "none",
+            "lineageTag": "0b3c3055-0d4c-4495-90cb-16c33576d61c"
+          }
+        ],
+        "measures": [],
+        "partitions": [
+          {
+            "name": "FactNHIndiaYear",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(Binary.FromText(\"eWVhcixuaF9hY2NpZGVudHMsbmhfZmF0YWxpdGllcyxzb3VyY2UNCjIwMTgsMTQwODQzLCxQSUIgTW9SVEggUFJJRCAxOTQyODg5IC8gTW9SVEggMjAyMiByZXBvcnQNCjIwMTksMTM3MTkxLCxQSUIgTW9SVEggUFJJRCAxOTQyODg5IC8gTW9SVEggMjAyMiByZXBvcnQNCjIwMjAsMTE2NDk2LCxQSUIgTW9SVEggUFJJRCAxOTQyODg5IC8gTW9SVEggMjAyMiByZXBvcnQNCjIwMjEsMTI4ODI1LCxQSUIgTW9SVEggUFJJRCAxOTQyODg5IC8gTW9SVEggMjAyMiByZXBvcnQNCjIwMjIsMTUxOTk3LDYxMDM4LFBJQiBNb1JUSCBQUklEIDIwNDI1MDkNCg==\", BinaryEncoding.Base64), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    ChangedTypes = Table.TransformColumnTypes(PromotedHeaders, {{\"year\", Int64.Type},\n            {\"nh_accidents\", Int64.Type},\n            {\"nh_fatalities\", Int64.Type},\n            {\"source\", type text}})\nin\n    ChangedTypes"
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactNHStateYear",
+        "lineageTag": "367bcb56-8075-4c8c-aa4f-d76cb3be7e86",
+        "columns": [
+          {
+            "name": "state",
+            "dataType": "string",
+            "sourceColumn": "state",
+            "summarizeBy": "none",
+            "lineageTag": "ce00b2a9-55a8-4b24-9d17-9dd325f2635f"
+          },
+          {
+            "name": "year",
+            "dataType": "int64",
+            "sourceColumn": "year",
+            "summarizeBy": "none",
+            "lineageTag": "d8da0767-e267-4a84-bb4b-3cacb83c05e5"
+          },
+          {
+            "name": "nh_accidents",
+            "dataType": "int64",
+            "sourceColumn": "nh_accidents",
+            "summarizeBy": "sum",
+            "lineageTag": "9754be0f-a527-474b-b97f-38c316854dc0"
+          },
+          {
+            "name": "rank_2022",
+            "dataType": "int64",
+            "sourceColumn": "rank_2022",
+            "summarizeBy": "sum",
+            "lineageTag": "42df90ea-5bfb-460e-b625-3391148a3f4f"
+          },
+          {
+            "name": "source_table",
+            "dataType": "string",
+            "sourceColumn": "source_table",
+            "summarizeBy": "none",
+            "lineageTag": "584d1899-9e54-4c3f-922a-88909cd3cf56"
+          },
+          {
+            "name": "location",
+            "dataType": "string",
+            "sourceColumn": "location",
+            "summarizeBy": "none",
+            "lineageTag": "5eb2cbe9-61b6-4f20-9335-45ec101431ce",
+            "dataCategory": "Address"
+          }
+        ],
+        "measures": [
+          {
+            "name": "NH State Accidents",
+            "expression": "SUM('FactNHStateYear'[nh_accidents])",
+            "formatString": "#,0",
+            "lineageTag": "2e059b7c-797f-4ad7-bec8-b01261eb6df3"
+          },
+          {
+            "name": "NH State Accidents 2022",
+            "expression": "CALCULATE(SUM('FactNHStateYear'[nh_accidents]), REMOVEFILTERS('FactNHStateYear'[year]), 'FactNHStateYear'[year] = 2022)",
+            "formatString": "#,0",
+            "lineageTag": "fc41539d-4f05-4feb-9b20-4e8daf967da1"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactNHStateYear",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(Binary.FromText(\"c3RhdGUseWVhcixuaF9hY2NpZGVudHMscmFua18yMDIyLHNvdXJjZV90YWJsZQ0KVGFtaWwgTmFkdSwyMDE4LDIyOTYxLDEsTW9SVEggVGFibGUgNS41DQpUYW1pbCBOYWR1LDIwMTksMjE0ODksMSxNb1JUSCBUYWJsZSA1LjUNClRhbWlsIE5hZHUsMjAyMCwxODM3MiwxLE1vUlRIIFRhYmxlIDUuNQ0KVGFtaWwgTmFkdSwyMDIxLDE2ODY5LDEsTW9SVEggVGFibGUgNS41DQpUYW1pbCBOYWR1LDIwMjIsMTg5NzIsMSxNb1JUSCBUYWJsZSA1LjUNCktlcmFsYSwyMDE4LDkxNjEsMixNb1JUSCBUYWJsZSA1LjUNCktlcmFsYSwyMDE5LDk0NTksMixNb1JUSCBUYWJsZSA1LjUNCktlcmFsYSwyMDIwLDY1OTQsMixNb1JUSCBUYWJsZSA1LjUNCktlcmFsYSwyMDIxLDgwNDgsMixNb1JUSCBUYWJsZSA1LjUNCktlcmFsYSwyMDIyLDE3NjI3LDIsTW9SVEggVGFibGUgNS41DQpVdHRhciBQcmFkZXNoLDIwMTgsMTYxOTgsMyxNb1JUSCBUYWJsZSA1LjUNClV0dGFyIFByYWRlc2gsMjAxOSwxNjE4MSwzLE1vUlRIIFRhYmxlIDUuNQ0KVXR0YXIgUHJhZGVzaCwyMDIwLDEzNjk1LDMsTW9SVEggVGFibGUgNS41DQpVdHRhciBQcmFkZXNoLDIwMjEsMTQ1NDAsMyxNb1JUSCBUYWJsZSA1LjUNClV0dGFyIFByYWRlc2gsMjAyMiwxNDk5MCwzLE1vUlRIIFRhYmxlIDUuNQ0KTWFkaHlhIFByYWRlc2gsMjAxOCw5OTY3LDQsTW9SVEggVGFibGUgNS41DQpNYWRoeWEgUHJhZGVzaCwyMDE5LDEwNDQwLDQsTW9SVEggVGFibGUgNS41DQpNYWRoeWEgUHJhZGVzaCwyMDIwLDk4NjYsNCxNb1JUSCBUYWJsZSA1LjUNCk1hZGh5YSBQcmFkZXNoLDIwMjEsMTEwMzAsNCxNb1JUSCBUYWJsZSA1LjUNCk1hZGh5YSBQcmFkZXNoLDIwMjIsMTM4NjAsNCxNb1JUSCBUYWJsZSA1LjUNCkthcm5hdGFrYSwyMDE4LDEzNjM4LDUsTW9SVEggVGFibGUgNS41DQpLYXJuYXRha2EsMjAxOSwxMzM2Myw1LE1vUlRIIFRhYmxlIDUuNQ0KS2FybmF0YWthLDIwMjAsMTEyMzAsNSxNb1JUSCBUYWJsZSA1LjUNCkthcm5hdGFrYSwyMDIxLDExNDYyLDUsTW9SVEggVGFibGUgNS41DQpLYXJuYXRha2EsMjAyMiwxMzM4NCw1LE1vUlRIIFRhYmxlIDUuNQ0KTWFoYXJhc2h0cmEsMjAxOCw5MzU1LDYsTW9SVEggVGFibGUgNS41DQpNYWhhcmFzaHRyYSwyMDE5LDgzNjAsNixNb1JUSCBUYWJsZSA1LjUNCk1haGFyYXNodHJhLDIwMjAsNjUwMSw2LE1vUlRIIFRhYmxlIDUuNQ0KTWFoYXJhc2h0cmEsMjAyMSw3NTAxLDYsTW9SVEggVGFibGUgNS41DQpNYWhhcmFzaHRyYSwyMDIyLDk0MTcsNixNb1JUSCBUYWJsZSA1LjUNCkFuZGhyYSBQcmFkZXNoLDIwMTgsODEyMiw3LE1vUlRIIFRhYmxlIDUuNQ0KQW5kaHJhIFByYWRlc2gsMjAxOSw3NjgyLDcsTW9SVEggVGFibGUgNS41DQpBbmRocmEgUHJhZGVzaCwyMDIwLDcxNjcsNyxNb1JUSCBUYWJsZSA1LjUNCkFuZGhyYSBQcmFkZXNoLDIwMjEsODI0MSw3LE1vUlRIIFRhYmxlIDUuNQ0KQW5kaHJhIFByYWRlc2gsMjAyMiw4NjUwLDcsTW9SVEggVGFibGUgNS41DQpUZWxhbmdhbmEsMjAxOCw2NDg3LDgsTW9SVEggVGFibGUgNS41DQpUZWxhbmdhbmEsMjAxOSw3MzUyLDgsTW9SVEggVGFibGUgNS41DQpUZWxhbmdhbmEsMjAyMCw2ODIwLDgsTW9SVEggVGFibGUgNS41DQpUZWxhbmdhbmEsMjAyMSw3MjE0LDgsTW9SVEggVGFibGUgNS41DQpUZWxhbmdhbmEsMjAyMiw3NTA1LDgsTW9SVEggVGFibGUgNS41DQpSYWphc3RoYW4sMjAxOCw2NzI2LDksTW9SVEggVGFibGUgNS41DQpSYWphc3RoYW4sMjAxOSw2ODgzLDksTW9SVEggVGFibGUgNS41DQpSYWphc3RoYW4sMjAyMCw1NzY0LDksTW9SVEggVGFibGUgNS41DQpSYWphc3RoYW4sMjAyMSw2NDI0LDksTW9SVEggVGFibGUgNS41DQpSYWphc3RoYW4sMjAyMiw3MDkzLDksTW9SVEggVGFibGUgNS41DQpCaWhhciwyMDE4LDQwMTYsMTAsTW9SVEggVGFibGUgNS41DQpCaWhhciwyMDE5LDQ1MjYsMTAsTW9SVEggVGFibGUgNS41DQpCaWhhciwyMDIwLDQxMDEsMTAsTW9SVEggVGFibGUgNS41DQpCaWhhciwyMDIxLDQzNDksMTAsTW9SVEggVGFibGUgNS41DQpCaWhhciwyMDIyLDQ2MDEsMTAsTW9SVEggVGFibGUgNS41DQo=\", BinaryEncoding.Base64), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    ChangedTypes = Table.TransformColumnTypes(PromotedHeaders, {{\"state\", type text}, {\"year\", Int64.Type}, {\"nh_accidents\", Int64.Type}, {\"rank_2022\", Int64.Type}, {\"source_table\", type text}}),\n    AddedLocation = Table.AddColumn(ChangedTypes, \"location\", each [state] & \", India\", type text)\nin\n    AddedLocation"
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactAllRoadsIndiaYear",
+        "lineageTag": "46998b46-abd7-45a2-84c5-1f1c4ac8a037",
+        "columns": [
+          {
+            "name": "year",
+            "dataType": "int64",
+            "sourceColumn": "year",
+            "summarizeBy": "none",
+            "lineageTag": "64127ec7-c6d5-4cc5-b1c7-b759d528533b"
+          },
+          {
+            "name": "accidents",
+            "dataType": "int64",
+            "sourceColumn": "accidents",
+            "summarizeBy": "sum",
+            "lineageTag": "5210d370-f0c1-4559-8bf8-5167053ea1c1"
+          },
+          {
+            "name": "fatalities",
+            "dataType": "int64",
+            "sourceColumn": "fatalities",
+            "summarizeBy": "sum",
+            "lineageTag": "8fe7f822-fc57-48f3-87ed-2c814060a695"
+          },
+          {
+            "name": "injured",
+            "dataType": "int64",
+            "sourceColumn": "injured",
+            "summarizeBy": "sum",
+            "lineageTag": "0382aab3-a2c4-4d4f-9884-2e3ace1977f0"
+          },
+          {
+            "name": "source",
+            "dataType": "string",
+            "sourceColumn": "source",
+            "summarizeBy": "none",
+            "lineageTag": "09130771-c89b-4245-b1b9-92afa0766533"
+          }
+        ],
+        "measures": [],
+        "partitions": [
+          {
+            "name": "FactAllRoadsIndiaYear",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(Binary.FromText(\"eWVhcixhY2NpZGVudHMsZmF0YWxpdGllcyxpbmp1cmVkLHNvdXJjZQ0KMjAxOCw0NzA0MDMsMTU3NTkzLDQ2NDcxNSxQSUIgTW9SVEggUFJJRCAyMDQyNTA5DQoyMDE5LDQ1Njk1OSwxNTg5ODQsNDQ5MzYwLFBJQiBNb1JUSCBQUklEIDIwNDI1MDkNCjIwMjAsMzcyMTgxLDEzODM4MywzNDY3NDcsUElCIE1vUlRIIFBSSUQgMjA0MjUwOQ0KMjAyMSw0MTI0MzIsMTUzOTcyLDM4NDQ0OCxQSUIgTW9SVEggUFJJRCAyMDQyNTA5DQoyMDIyLDQ2MTMxMiwxNjg0OTEsNDQzMzY2LFBJQiBNb1JUSCBQUklEIDIwNDI1MDkNCg==\", BinaryEncoding.Base64), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    ChangedTypes = Table.TransformColumnTypes(PromotedHeaders, {{\"year\", Int64.Type},\n            {\"accidents\", Int64.Type},\n            {\"fatalities\", Int64.Type},\n            {\"injured\", Int64.Type},\n            {\"source\", type text}})\nin\n    ChangedTypes"
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactAllRoadsStateYear",
+        "lineageTag": "e71629a8-f95e-48ef-b79f-407d7451e1e9",
+        "columns": [
+          {
+            "name": "state",
+            "dataType": "string",
+            "sourceColumn": "state",
+            "summarizeBy": "none",
+            "lineageTag": "79b55f9d-41c9-4f47-9a21-a3be359f9d77"
+          },
+          {
+            "name": "year",
+            "dataType": "int64",
+            "sourceColumn": "year",
+            "summarizeBy": "none",
+            "lineageTag": "5b70df72-29d0-44cc-bf3c-491c65887e4c"
+          },
+          {
+            "name": "all_road_accidents",
+            "dataType": "int64",
+            "sourceColumn": "all_road_accidents",
+            "summarizeBy": "sum",
+            "lineageTag": "e1c2a6cd-6485-4556-80f6-7a9e1c8e6a85"
+          },
+          {
+            "name": "all_road_fatalities",
+            "dataType": "int64",
+            "sourceColumn": "all_road_fatalities",
+            "summarizeBy": "sum",
+            "lineageTag": "64e82f15-de8e-4781-ac2d-c0b71dd57eb0"
+          },
+          {
+            "name": "all_road_injured",
+            "dataType": "int64",
+            "sourceColumn": "all_road_injured",
+            "summarizeBy": "sum",
+            "lineageTag": "45220e47-1388-4880-b0ed-fa3c3705efad"
+          },
+          {
+            "name": "source",
+            "dataType": "string",
+            "sourceColumn": "source",
+            "summarizeBy": "none",
+            "lineageTag": "439e46e5-10f5-4999-bd33-9ffb7002670c"
+          }
+        ],
+        "measures": [
+          {
+            "name": "State All Road Accidents",
+            "expression": "SUM('FactAllRoadsStateYear'[all_road_accidents])",
+            "formatString": "#,0",
+            "lineageTag": "8bacfa67-f0d0-44cb-b214-f7524698265d"
+          },
+          {
+            "name": "State All Road Fatalities",
+            "expression": "SUM('FactAllRoadsStateYear'[all_road_fatalities])",
+            "formatString": "#,0",
+            "lineageTag": "5e1ab451-35a7-4179-893c-744dbaa1ee41"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactAllRoadsStateYear",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(Binary.FromText(\"c3RhdGUseWVhcixhbGxfcm9hZF9hY2NpZGVudHMsYWxsX3JvYWRfZmF0YWxpdGllcyxhbGxfcm9hZF9pbmp1cmVkLHNvdXJjZQ0KQW5kaHJhIFByYWRlc2gsMjAxOCwyNDQ3NSw3NTU2LDIzNDU2LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpBbmRocmEgUHJhZGVzaCwyMDE5LDIxOTkyLDc5ODQsMjQ2MTksIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkFuZGhyYSBQcmFkZXNoLDIwMjAsMTk1MDksNzAzOSwxOTY3NSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQW5kaHJhIFByYWRlc2gsMjAyMSwyMTU1Niw4MTg2LDIxMDQwLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpBbmRocmEgUHJhZGVzaCwyMDIyLDIxMjQ5LDgyOTMsMjEzNDAsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkFydW5hY2hhbCBQcmFkZXNoLDIwMTgsMjc3LDE3NSwzMjMsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkFydW5hY2hhbCBQcmFkZXNoLDIwMTksMjM3LDEyNywzMDksIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkFydW5hY2hhbCBQcmFkZXNoLDIwMjAsMTM0LDczLDE4NSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQXJ1bmFjaGFsIFByYWRlc2gsMjAyMSwyODMsMTU3LDM0NywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQXJ1bmFjaGFsIFByYWRlc2gsMjAyMiwyMjcsMTQ4LDE4NiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQXNzYW0sMjAxOCw4MjQ4LDI5NjYsNzM3NSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQXNzYW0sMjAxOSw4MzUwLDMyMDgsNzQ3MywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQXNzYW0sMjAyMCw2NTk1LDI2MjksNTI2OSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQXNzYW0sMjAyMSw3NDExLDMwMzYsNTc2MywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQXNzYW0sMjAyMiw3MDIzLDI5OTQsNTYzNywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQmloYXIsMjAxOCw5NjAwLDY3MjksNjY3OSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQmloYXIsMjAxOSwxMDAwNyw3MjA1LDcyMDYsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkJpaGFyLDIwMjAsODYzOSw2Njk5LDcwMTYsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkJpaGFyLDIwMjEsOTU1Myw3NjYwLDc5NDYsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkJpaGFyLDIwMjIsMTA4MDEsODg5OCw3MDY4LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpDaGhhdHRpc2dhcmgsMjAxOCwxMzg2NCw0NTkyLDEyNzE1LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpDaGhhdHRpc2dhcmgsMjAxOSwxMzg5OSw1MDAzLDEzMDkwLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpDaGhhdHRpc2dhcmgsMjAyMCwxMTY1Niw0NjA2LDEwNTA1LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpDaGhhdHRpc2dhcmgsMjAyMSwxMjM3NSw1MzcxLDEwNjgzLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpDaGhhdHRpc2dhcmgsMjAyMiwxMzI3OSw1ODM0LDExNjk1LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpHb2EsMjAxOCwzNzA5LDI2MiwxNTQ5LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpHb2EsMjAxOSwzNDQwLDI5NywxNDQ4LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpHb2EsMjAyMCwyMzc1LDIyMyw4ODAsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkdvYSwyMDIxLDI4NDksMjI2LDg0MywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KR29hLDIwMjIsMzAxMSwyNzEsMTA5MSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KR3VqYXJhdCwyMDE4LDE4NzY5LDc5OTYsMTc0NjcsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkd1amFyYXQsMjAxOSwxNzA0Niw3MzkwLDE2MjU4LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpHdWphcmF0LDIwMjAsMTMzOTgsNjE3MCwxMjAwMiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KR3VqYXJhdCwyMDIxLDE1MTg2LDc0NTIsMTM2OTAsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkd1amFyYXQsMjAyMiwxNTc1MSw3NjE4LDE1MDg5LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpIYXJ5YW5hLDIwMTgsMTEyMzgsNTExOCwxMDAyMCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KSGFyeWFuYSwyMDE5LDEwOTQ0LDUwNTcsOTM2MiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KSGFyeWFuYSwyMDIwLDk0MzEsNDUwNyw3NjU5LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpIYXJ5YW5hLDIwMjEsOTkzMyw0NzA2LDgxMjEsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkhhcnlhbmEsMjAyMiwxMDQyOSw0OTE1LDg1MTksIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkhpbWFjaGFsIFByYWRlc2gsMjAxOCwzMTEwLDEyMDgsNTU1MSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KSGltYWNoYWwgUHJhZGVzaCwyMDE5LDI4NzMsMTE0Niw0OTA0LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpIaW1hY2hhbCBQcmFkZXNoLDIwMjAsMjIzOSw4OTMsMzIyMywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KSGltYWNoYWwgUHJhZGVzaCwyMDIxLDI0MDQsMTA1MiwzNDU0LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpIaW1hY2hhbCBQcmFkZXNoLDIwMjIsMjU5NywxMDMyLDQwNjMsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkpoYXJraGFuZCwyMDE4LDUzOTQsMzU0MiwzOTc1LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpKaGFya2hhbmQsMjAxOSw1MjE3LDM4MDEsMzgxOCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KSmhhcmtoYW5kLDIwMjAsNDQwNSwzMDQ0LDMyOTUsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkpoYXJraGFuZCwyMDIxLDQ3MjgsMzUxMywzMjI3LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpKaGFya2hhbmQsMjAyMiw1MTc1LDM4OTgsMzc0NywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KS2FybmF0YWthLDIwMTgsNDE3MDcsMTA5OTAsNTE1NjIsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkthcm5hdGFrYSwyMDE5LDQwNjU4LDEwOTU4LDUwNDQ3LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpLYXJuYXRha2EsMjAyMCwzNDE3OCw5NzYwLDM5NDkyLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpLYXJuYXRha2EsMjAyMSwzNDY0NywxMDAzOCw0MDc1NCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KS2FybmF0YWthLDIwMjIsMzk3NjIsMTE3MDIsNDgxNTQsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCktlcmFsYSwyMDE4LDQwMTgxLDQzMDMsNDU0NTgsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCktlcmFsYSwyMDE5LDQxMTExLDQ0NDAsNDYwNTUsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCktlcmFsYSwyMDIwLDI3ODc3LDI5NzksMzA1MTAsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCktlcmFsYSwyMDIxLDMzMjk2LDM0MjksMzY3NzUsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCktlcmFsYSwyMDIyLDQzOTEwLDQzMTcsNDkzMDcsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1hZGh5YSBQcmFkZXNoLDIwMTgsNTEzOTcsMTA3MDYsNTQ2NjIsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1hZGh5YSBQcmFkZXNoLDIwMTksNTA2NjksMTEyNDksNTI4MTYsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1hZGh5YSBQcmFkZXNoLDIwMjAsNDUyNjYsMTExNDEsNDY0NTYsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1hZGh5YSBQcmFkZXNoLDIwMjEsNDg4NzcsMTIwNTcsNDg5NTYsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1hZGh5YSBQcmFkZXNoLDIwMjIsNTQ0MzIsMTM0MjcsNTUxNjgsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1haGFyYXNodHJhLDIwMTgsMzU3MTcsMTMyNjEsMzEzNjUsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1haGFyYXNodHJhLDIwMTksMzI5MjUsMTI3ODgsMjg2MjgsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1haGFyYXNodHJhLDIwMjAsMjQ5NzEsMTE1NjksMTk5MTQsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1haGFyYXNodHJhLDIwMjEsMjk0NzcsMTM1MjgsMjMwNzEsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1haGFyYXNodHJhLDIwMjIsMzMzODMsMTUyMjQsMjcyMzksIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1hbmlwdXIsMjAxOCw2MDEsMTM0LDEwNDIsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1hbmlwdXIsMjAxOSw2NzIsMTU2LDEwNTUsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1hbmlwdXIsMjAyMCw0MzIsMTI3LDY2MywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTWFuaXB1ciwyMDIxLDM2NiwxMTAsNTA0LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpNYW5pcHVyLDIwMjIsNTA4LDEyNyw4MTcsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1lZ2hhbGF5YSwyMDE4LDM5OSwxODIsMjA1LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpNZWdoYWxheWEsMjAxOSw0ODIsMTc5LDIyMiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTWVnaGFsYXlhLDIwMjAsMjE0LDE0NCwyMjAsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1lZ2hhbGF5YSwyMDIxLDI0NSwxODcsMjYzLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpNZWdoYWxheWEsMjAyMiwyNDYsMTYyLDMxMCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTWl6b3JhbSwyMDE4LDUzLDQ1LDgwLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpNaXpvcmFtLDIwMTksNjIsNDgsNTYsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk1pem9yYW0sMjAyMCw1Myw0Miw2OCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTWl6b3JhbSwyMDIxLDY5LDU2LDY1LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpNaXpvcmFtLDIwMjIsMTMzLDExMywxMDcsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk5hZ2FsYW5kLDIwMTgsNDMwLDM5LDMzNSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTmFnYWxhbmQsMjAxOSwzNTgsMjYsMjQ2LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpOYWdhbGFuZCwyMDIwLDUwMCw1MywyODYsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCk5hZ2FsYW5kLDIwMjEsNzQ2LDU1LDM4MCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTmFnYWxhbmQsMjAyMiw0ODksNzMsMjkxLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpPZGlzaGEsMjAxOCwxMTI2Miw1MzE1LDExNzk0LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpPZGlzaGEsMjAxOSwxMTA2NCw1MzMzLDExMTc3LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpPZGlzaGEsMjAyMCw5ODE3LDQ3MzgsODgyMiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KT2Rpc2hhLDIwMjEsMTA5ODMsNTA4MSw5NzgyLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpPZGlzaGEsMjAyMiwxMTY2Myw1NDY3LDEwMzAyLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpQdW5qYWIsMjAxOCw2NDI4LDQ3NDAsMzM4NCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KUHVuamFiLDIwMTksNjM0OCw0NTI1LDM4MTIsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClB1bmphYiwyMDIwLDUyMDMsMzg5OCwyOTA0LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpQdW5qYWIsMjAyMSw1ODcxLDQ1ODksMzA3MiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KUHVuamFiLDIwMjIsNjEzOCw0NzU2LDMzMjQsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClJhamFzdGhhbiwyMDE4LDIxNzQzLDEwMzIwLDIxNTQ3LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpSYWphc3RoYW4sMjAxOSwyMzQ4MCwxMDU2MywyMjk3OSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KUmFqYXN0aGFuLDIwMjAsMTkxMTQsOTI1MCwxNjc2OSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KUmFqYXN0aGFuLDIwMjEsMjA5NTEsMTAwNDMsMTkzNDQsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClJhamFzdGhhbiwyMDIyLDIzNjE0LDExMTA0LDIyMjkzLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpTaWtraW0sMjAxOCwxODAsODUsMzcwLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpTaWtraW0sMjAxOSwxNjIsNzMsMzE4LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpTaWtraW0sMjAyMCwxMzgsNDcsMjE4LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpTaWtraW0sMjAyMSwxNTUsNTYsMjQ0LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpTaWtraW0sMjAyMiwyMTEsOTIsMzU0LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpUYW1pbCBOYWR1LDIwMTgsNjcyNzksMTgzOTIsNjk4MzQsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClRhbWlsIE5hZHUsMjAxOSw2MjY4NSwxODEyOSw2MzEzMiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVGFtaWwgTmFkdSwyMDIwLDQ5ODQ0LDE0NTI3LDQ3NjE4LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpUYW1pbCBOYWR1LDIwMjEsNTU2ODIsMTUzODQsNTU5OTYsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClRhbWlsIE5hZHUsMjAyMiw2NDEwNSwxNzg4NCw2NzcwMywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVGVsYW5nYW5hLDIwMTgsMjIyMzAsNjYwMywyMzYxMywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVGVsYW5nYW5hLDIwMTksMjE1NzAsNjk2NCwyMTk5OSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVGVsYW5nYW5hLDIwMjAsMTkxNzIsNjg4MiwxODY2MSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVGVsYW5nYW5hLDIwMjEsMjEzMTUsNzU1NywyMDEwNywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVGVsYW5nYW5hLDIwMjIsMjE2MTksNzU1OSwyMDIwOSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVHJpcHVyYSwyMDE4LDU1MiwyMTMsNzQxLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpUcmlwdXJhLDIwMTksNjU1LDIzOSw4MTYsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClRyaXB1cmEsMjAyMCw0NjYsMTkyLDQ3MCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVHJpcHVyYSwyMDIxLDQ3OSwxOTQsNTQ3LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpUcmlwdXJhLDIwMjIsNTc1LDI0MSw1NDEsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClV0dGFyYWtoYW5kLDIwMTgsMTQ2OCwxMDQ3LDE1NzEsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClV0dGFyYWtoYW5kLDIwMTksMTM1Miw4NjcsMTQ1NywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVXR0YXJha2hhbmQsMjAyMCwxMDQxLDY3NCw4NTQsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClV0dGFyYWtoYW5kLDIwMjEsMTQwNSw4MjAsMTA5MSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVXR0YXJha2hhbmQsMjAyMiwxNjc0LDEwNDIsMTYxMywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVXR0YXIgUHJhZGVzaCwyMDE4LDQyNTY4LDIyMjU2LDI5NjY0LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpVdHRhciBQcmFkZXNoLDIwMTksNDI1NzIsMjI2NTUsMjg5MzIsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClV0dGFyIFByYWRlc2gsMjAyMCwzNDI0MywxOTE0OSwyMjQxMCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KVXR0YXIgUHJhZGVzaCwyMDIxLDM3NzI5LDIxMjI3LDI0ODk3LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpVdHRhciBQcmFkZXNoLDIwMjIsNDE3NDYsMjI1OTUsMjg1NDEsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCldlc3QgQmVuZ2FsLDIwMTgsMTI3MDUsNTcxMSwxMTk5NywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KV2VzdCBCZW5nYWwsMjAxOSwxMjY1OCw1NzY3LDExNzYxLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpXZXN0IEJlbmdhbCwyMDIwLDEwODYzLDUxMjgsOTcxNSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KV2VzdCBCZW5nYWwsMjAyMSwxMTkzNyw1ODAwLDEwNDU0LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpXZXN0IEJlbmdhbCwyMDIyLDEzNjg2LDYwMDIsMTI4NDMsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkFuZGFtYW4gJiBOaWNvYmFyIElzbGFuZHMsMjAxOCwyNTQsMTksMjYwLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpBbmRhbWFuICYgTmljb2JhciBJc2xhbmRzLDIwMTksMjMwLDIwLDIwNywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQW5kYW1hbiAmIE5pY29iYXIgSXNsYW5kcywyMDIwLDE0MSwxNCwxNDUsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkFuZGFtYW4gJiBOaWNvYmFyIElzbGFuZHMsMjAyMSwxMTUsMjAsOTcsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkFuZGFtYW4gJiBOaWNvYmFyIElzbGFuZHMsMjAyMiwxNDEsMTksMTM2LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpDaGFuZGlnYXJoLDIwMTgsMzE2LDk4LDMwMCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQ2hhbmRpZ2FyaCwyMDE5LDMwNSwxMDQsMjc1LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpDaGFuZGlnYXJoLDIwMjAsMTU5LDUzLDE0OCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KQ2hhbmRpZ2FyaCwyMDIxLDIwOCw5NiwxNzIsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkNoYW5kaWdhcmgsMjAyMiwyMzcsODMsMjAzLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpEYWRyYSAmIE5hZ2FyIEhhdmVsaSwyMDE4LDgwLDU0LDY2LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpEYWRyYSAmIE5hZ2FyIEhhdmVsaSwyMDE5LDY4LDQ5LDEwNSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGFkcmEgJiBOYWdhciBIYXZlbGksMjAyMCwxMDAsNjQsMTE5LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpEYWRyYSAmIE5hZ2FyIEhhdmVsaSwyMDIxLDE0MCw3NiwxNzEsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkRhZHJhICYgTmFnYXIgSGF2ZWxpLDIwMjIsMTk2LDkwLDI3MywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGFtYW4gJiBEaXUsMjAxOCw3NiwzNSw5NCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGFtYW4gJiBEaXUsMjAxOSw2OSwyOCw3NCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGFtYW4gJiBEaXUsMjAyMCwsLCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGFtYW4gJiBEaXUsMjAyMSwsLCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGFtYW4gJiBEaXUsMjAyMiwsLCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGVsaGksMjAxOCw2NTE1LDE2OTAsNjA4NiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGVsaGksMjAxOSw1NjEwLDE0NjMsNTE1MiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGVsaGksMjAyMCw0MTc4LDExOTYsMzY2MiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGVsaGksMjAyMSw0NzIwLDEyMzksNDI3MywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KRGVsaGksMjAyMiw1NjUyLDE0NjEsNTIwMSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KSmFtbXUgJiBLYXNobWlyLDIwMTgsNTk3OCw5ODQsNzg0NSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KSmFtbXUgJiBLYXNobWlyLDIwMTksNTc5Niw5OTYsNzUzMiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KSmFtbXUgJiBLYXNobWlyLDIwMjAsNDg2MCw3MjgsNTg5NCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KSmFtbXUgJiBLYXNobWlyLDIwMjEsNTQ1Miw3NzQsNjk3MiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KSmFtbXUgJiBLYXNobWlyLDIwMjIsNjA5Miw4MDUsODM3MiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTGFkYWtoLDIwMTgsLCwsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCkxhZGFraCwyMDE5LCwsLCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpMYWRha2gsMjAyMCwsLCwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTGFkYWtoLDIwMjEsMjM2LDU2LDI0MiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTGFkYWtoLDIwMjIsMzc0LDYyLDM0NiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTGFrc2hhZHdlZXAsMjAxOCwzLDEsMywiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTGFrc2hhZHdlZXAsMjAxOSwxLDAsMSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTGFrc2hhZHdlZXAsMjAyMCwxLDAsMSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTGFrc2hhZHdlZXAsMjAyMSw0LDEsNiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KTGFrc2hhZHdlZXAsMjAyMiwzLDIsMiwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KUHVkdWNoZXJyeSwyMDE4LDE1OTcsMjI2LDE3MjcsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINClB1ZHVjaGVycnksMjAxOSwxMzkyLDE0NywxNjE5LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpQdWR1Y2hlcnJ5LDIwMjAsOTY5LDE0NSwxMDE5LCJQSUIvTW9SVEggUFJJRCAyMDQyNTA5LCBBbm5leHVyZXMgSS1JSUkiDQpQdWR1Y2hlcnJ5LDIwMjEsMTA0OSwxNDAsMTA5OSwiUElCL01vUlRIIFBSSUQgMjA0MjUwOSwgQW5uZXh1cmVzIEktSUlJIg0KUHVkdWNoZXJyeSwyMDIyLDExODEsMTgxLDEyODIsIlBJQi9Nb1JUSCBQUklEIDIwNDI1MDksIEFubmV4dXJlcyBJLUlJSSINCg==\", BinaryEncoding.Base64), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    ChangedTypes = Table.TransformColumnTypes(PromotedHeaders, {{\"state\", type text},\n            {\"year\", Int64.Type},\n            {\"all_road_accidents\", Int64.Type},\n            {\"all_road_fatalities\", Int64.Type},\n            {\"all_road_injured\", Int64.Type},\n            {\"source\", type text}})\nin\n    ChangedTypes"
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactAnnualSummary",
+        "lineageTag": "794ebfff-2838-46cd-b295-09865c79be36",
+        "columns": [
+          {
+            "name": "year",
+            "dataType": "int64",
+            "sourceColumn": "year",
+            "summarizeBy": "none",
+            "lineageTag": "019caf4b-2a6e-4180-93c1-ef15a39af712"
+          },
+          {
+            "name": "nh_accidents",
+            "dataType": "int64",
+            "sourceColumn": "nh_accidents",
+            "summarizeBy": "sum",
+            "lineageTag": "dc51c1b9-14f2-4b7b-8a66-1ddcd77c840b"
+          },
+          {
+            "name": "nh_fatalities",
+            "dataType": "int64",
+            "sourceColumn": "nh_fatalities",
+            "summarizeBy": "sum",
+            "lineageTag": "cc7e51c7-5fb1-4860-a57d-1714da24c096"
+          },
+          {
+            "name": "top10_state_accidents",
+            "dataType": "int64",
+            "sourceColumn": "top10_state_accidents",
+            "summarizeBy": "sum",
+            "lineageTag": "8a8e2d3e-82fe-45ea-8909-769d0578370f"
+          },
+          {
+            "name": "top10_share_of_nh_accidents_pct",
+            "dataType": "double",
+            "sourceColumn": "top10_share_of_nh_accidents_pct",
+            "summarizeBy": "sum",
+            "lineageTag": "78ada786-ed57-41f7-bc07-a71992fe8b1c"
+          },
+          {
+            "name": "all_road_accidents",
+            "dataType": "int64",
+            "sourceColumn": "all_road_accidents",
+            "summarizeBy": "sum",
+            "lineageTag": "c28feff0-4689-4ccd-aef8-b3df224a20e1"
+          },
+          {
+            "name": "all_road_fatalities",
+            "dataType": "int64",
+            "sourceColumn": "all_road_fatalities",
+            "summarizeBy": "sum",
+            "lineageTag": "b640e68e-f3e4-4420-aad0-860b7cde6760"
+          },
+          {
+            "name": "all_road_injured",
+            "dataType": "int64",
+            "sourceColumn": "all_road_injured",
+            "summarizeBy": "sum",
+            "lineageTag": "e0e1ed54-abc4-4aae-a020-a55d30916c70"
+          },
+          {
+            "name": "source",
+            "dataType": "string",
+            "sourceColumn": "source",
+            "summarizeBy": "none",
+            "lineageTag": "45054cda-65cd-4ca1-8ebd-1993d8f7cf53"
+          }
+        ],
+        "measures": [
+          {
+            "name": "NH Accidents",
+            "expression": "SUM('FactAnnualSummary'[nh_accidents])",
+            "formatString": "#,0",
+            "lineageTag": "fb66b749-902f-4d49-9de5-1c8d44c6c8ad"
+          },
+          {
+            "name": "NH Fatalities",
+            "expression": "SUM('FactAnnualSummary'[nh_fatalities])",
+            "formatString": "#,0",
+            "lineageTag": "39d4ed34-bf9b-4e8d-bfe2-f289f243c3c5"
+          },
+          {
+            "name": "Top 10 State Accidents",
+            "expression": "SUM('FactAnnualSummary'[top10_state_accidents])",
+            "formatString": "#,0",
+            "lineageTag": "05376a54-6377-45cd-926a-8cf8a101764f"
+          },
+          {
+            "name": "All Road Accidents",
+            "expression": "SUM('FactAnnualSummary'[all_road_accidents])",
+            "formatString": "#,0",
+            "lineageTag": "687b28e1-5c5f-431e-9668-4bddb960a33a"
+          },
+          {
+            "name": "All Road Fatalities",
+            "expression": "SUM('FactAnnualSummary'[all_road_fatalities])",
+            "formatString": "#,0",
+            "lineageTag": "f4e66440-dd0b-48aa-9779-44edb8045369"
+          },
+          {
+            "name": "All Road Injuries",
+            "expression": "SUM('FactAnnualSummary'[all_road_injured])",
+            "formatString": "#,0",
+            "lineageTag": "a4cd0fc3-f0e6-4207-8ebb-c30e3d06f611"
+          },
+          {
+            "name": "NH Accidents 2022",
+            "expression": "CALCULATE([NH Accidents], REMOVEFILTERS('FactAnnualSummary'[year]), 'FactAnnualSummary'[year] = 2022)",
+            "formatString": "#,0",
+            "lineageTag": "b6b1e704-1c0d-4aa5-9496-ec8ef63e0a23"
+          },
+          {
+            "name": "NH Fatalities 2022",
+            "expression": "CALCULATE([NH Fatalities], REMOVEFILTERS('FactAnnualSummary'[year]), 'FactAnnualSummary'[year] = 2022)",
+            "formatString": "#,0",
+            "lineageTag": "2a334eb7-ddfc-449c-b3b4-18def4b53952"
+          },
+          {
+            "name": "NH Accident Share 2022",
+            "expression": "DIVIDE([NH Accidents 2022], CALCULATE([All Road Accidents], REMOVEFILTERS('FactAnnualSummary'[year]), 'FactAnnualSummary'[year] = 2022))",
+            "formatString": "0.0%",
+            "lineageTag": "18adb39a-dbc4-4311-ad1e-8579496d0211"
+          },
+          {
+            "name": "NH Fatality Share 2022",
+            "expression": "DIVIDE([NH Fatalities 2022], CALCULATE([All Road Fatalities], REMOVEFILTERS('FactAnnualSummary'[year]), 'FactAnnualSummary'[year] = 2022))",
+            "formatString": "0.0%",
+            "lineageTag": "681f2a5a-862c-4ecd-809b-b3d7d55a9592"
+          },
+          {
+            "name": "All Road Accidents 2022",
+            "expression": "CALCULATE([All Road Accidents], REMOVEFILTERS('FactAnnualSummary'[year]), 'FactAnnualSummary'[year] = 2022)",
+            "formatString": "#,0",
+            "lineageTag": "2f150bd1-4b0b-428f-a8ac-772ba6ee135d"
+          },
+          {
+            "name": "All Road Fatalities 2022",
+            "expression": "CALCULATE([All Road Fatalities], REMOVEFILTERS('FactAnnualSummary'[year]), 'FactAnnualSummary'[year] = 2022)",
+            "formatString": "#,0",
+            "lineageTag": "511cf797-fbda-4d33-bed4-3128ec04bcbe"
+          },
+          {
+            "name": "All Road Injuries 2022",
+            "expression": "CALCULATE([All Road Injuries], REMOVEFILTERS('FactAnnualSummary'[year]), 'FactAnnualSummary'[year] = 2022)",
+            "formatString": "#,0",
+            "lineageTag": "8a7051a6-c227-42f5-bdf5-9381e25f1955"
+          },
+          {
+            "name": "NH Accidents YoY 2022",
+            "expression": "VAR CurrentYear = CALCULATE([NH Accidents], REMOVEFILTERS('FactAnnualSummary'[year]), 'FactAnnualSummary'[year] = 2022) VAR PriorYear = CALCULATE([NH Accidents], REMOVEFILTERS('FactAnnualSummary'[year]), 'FactAnnualSummary'[year] = 2021) RETURN DIVIDE(CurrentYear - PriorYear, PriorYear)",
+            "formatString": "0.0%;-0.0%;0.0%",
+            "lineageTag": "31347fe2-2b76-4c29-a4ea-8990a7558363"
+          },
+          {
+            "name": "NH Fatalities per 100 Accidents 2022",
+            "expression": "DIVIDE([NH Fatalities 2022], [NH Accidents 2022]) * 100",
+            "formatString": "0.0",
+            "lineageTag": "ce08b9f3-efcf-4e90-af68-764f76c2a77e"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactAnnualSummary",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(Binary.FromText(\"eWVhcixuaF9hY2NpZGVudHMsbmhfZmF0YWxpdGllcyx0b3AxMF9zdGF0ZV9hY2NpZGVudHMsdG9wMTBfc2hhcmVfb2ZfbmhfYWNjaWRlbnRzX3BjdCxhbGxfcm9hZF9hY2NpZGVudHMsYWxsX3JvYWRfZmF0YWxpdGllcyxhbGxfcm9hZF9pbmp1cmVkLHNvdXJjZQ0KMjAxOCwxNDA4NDMsLDEwNjYzMSw3NS43LDQ3MDQwMywxNTc1OTMsNDY0NzE1LFBJQiBNb1JUSCBQUklEIDE5NDI4ODkgLyBNb1JUSCAyMDIyIHJlcG9ydA0KMjAxOSwxMzcxOTEsLDEwNTczNSw3Ny4xLDQ1Njk1OSwxNTg5ODQsNDQ5MzYwLFBJQiBNb1JUSCBQUklEIDE5NDI4ODkgLyBNb1JUSCAyMDIyIHJlcG9ydA0KMjAyMCwxMTY0OTYsLDkwMTEwLDc3LjQsMzcyMTgxLDEzODM4MywzNDY3NDcsUElCIE1vUlRIIFBSSUQgMTk0Mjg4OSAvIE1vUlRIIDIwMjIgcmVwb3J0DQoyMDIxLDEyODgyNSwsOTU2NzgsNzQuMyw0MTI0MzIsMTUzOTcyLDM4NDQ0OCxQSUIgTW9SVEggUFJJRCAxOTQyODg5IC8gTW9SVEggMjAyMiByZXBvcnQNCjIwMjIsMTUxOTk3LDYxMDM4LDExNjA5OSw3Ni40LDQ2MTMxMiwxNjg0OTEsNDQzMzY2LFBJQiBNb1JUSCBQUklEIDIwNDI1MDkNCg==\", BinaryEncoding.Base64), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    ChangedTypes = Table.TransformColumnTypes(PromotedHeaders, {{\"year\", Int64.Type},\n            {\"nh_accidents\", Int64.Type},\n            {\"nh_fatalities\", Int64.Type},\n            {\"top10_state_accidents\", Int64.Type},\n            {\"top10_share_of_nh_accidents_pct\", type number},\n            {\"all_road_accidents\", Int64.Type},\n            {\"all_road_fatalities\", Int64.Type},\n            {\"all_road_injured\", Int64.Type},\n            {\"source\", type text}})\nin\n    ChangedTypes"
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactRoadClass2022",
+        "lineageTag": "7cebdfe9-0ff5-46bc-b7a0-454d1386e6ab",
+        "columns": [
+          {
+            "name": "road_class",
+            "dataType": "string",
+            "sourceColumn": "road_class",
+            "summarizeBy": "none",
+            "lineageTag": "01ff37b1-6ccf-4917-9c21-8e66bb0458d2"
+          },
+          {
+            "name": "accidents",
+            "dataType": "int64",
+            "sourceColumn": "accidents",
+            "summarizeBy": "sum",
+            "lineageTag": "595f45b7-225f-4adf-beac-52228a4291a6"
+          },
+          {
+            "name": "fatalities",
+            "dataType": "int64",
+            "sourceColumn": "fatalities",
+            "summarizeBy": "sum",
+            "lineageTag": "1debfeea-8dea-41d1-9381-226480fb4eb9"
+          },
+          {
+            "name": "source",
+            "dataType": "string",
+            "sourceColumn": "source",
+            "summarizeBy": "none",
+            "lineageTag": "b6cb0cab-23db-4ee7-9853-5f47c1c69176"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Road Class Accidents",
+            "expression": "SUM('FactRoadClass2022'[accidents])",
+            "formatString": "#,0",
+            "lineageTag": "ca466678-6db3-4b69-a765-f257c1be3a18"
+          },
+          {
+            "name": "Road Class Fatalities",
+            "expression": "SUM('FactRoadClass2022'[fatalities])",
+            "formatString": "#,0",
+            "lineageTag": "bfd9070f-cd75-4e98-ba2e-57a469a03d9f"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactRoadClass2022",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": "let\n    Source = Csv.Document(Binary.FromText(\"cm9hZF9jbGFzcyxhY2NpZGVudHMsZmF0YWxpdGllcyxzb3VyY2UNCk5hdGlvbmFsIEhpZ2h3YXlzICsgRXhwcmVzc3dheXMsMTUxOTk3LDYxMDM4LCJNb1JUSC9QSUIsIDIwMjIiDQpPdGhlciByb2FkcyAoZGVyaXZlZCksMzA5MzE1LDEwNzQ1MywiQWxsIHJvYWRzIG1pbnVzIE5IICsgRXhwcmVzc3dheXMsIDIwMjIiDQo=\", BinaryEncoding.Base64), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    ChangedTypes = Table.TransformColumnTypes(PromotedHeaders, {{\"road_class\", type text},\n            {\"accidents\", Int64.Type},\n            {\"fatalities\", Int64.Type},\n            {\"source\", type text}})\nin\n    ChangedTypes"
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": []
+  }
+}

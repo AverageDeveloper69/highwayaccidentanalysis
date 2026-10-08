@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "241e193af90145a1b0a3",
+  "position": {
+    "x": 800,
+    "y": 112,
+    "z": 2800,
+    "width": 364,
+    "height": 112,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAnnualSummary"
+                    }
+                  },
+                  "Property": "All Road Injuries 2022"
+                }
+              },
+              "queryRef": "FactAnnualSummary.All Road Injuries 2022",
+              "active": true,
+              "nativeQueryRef": "All Road Injuries 2022"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ALL-ROAD INJURIES · 2022'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
